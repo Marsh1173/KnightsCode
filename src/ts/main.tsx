@@ -3,7 +3,12 @@ import ReactDOM from "react-dom";
 
 class MainDiv extends Component<{}, {}> {
   render() {
-    return <p>Knights Code</p>;
+    return (
+      <div>
+        <p>Knights Codessssss</p>
+        <button>Press me</button>
+      </div>
+    );
   }
 }
 
