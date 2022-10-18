@@ -1,0 +1,35 @@
+.HomePresenter {
+  align-items: flex-start;
+  padding-left: 20px;
+
+  gap: 40px;
+
+  h1 {
+    color: @blue;
+    font-size: 50px;
+  }
+  p {
+    color: @dark-gray;
+    font-size: 19px;
+  }
+
+  .take-survey-button {
+    .shadowed-button (@purple);
+    width: 400px;
+  }
+
+  .contact-form-container {
+    gap: 70px;
+    .contact-form {
+      .padding;
+      .rounded;
+      width: max-content;
+      border: 2px solid @orange;
+      gap: 10px;
+
+      .submit-button {
+        .shadowed-button (@orange);
+      }
+    }
+  }
+}

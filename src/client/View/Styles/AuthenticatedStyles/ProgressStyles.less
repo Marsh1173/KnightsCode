@@ -1,0 +1,76 @@
+.ProgressView {
+  .units {
+    .unit {
+      max-width: 580px;
+
+      .unit-content {
+        .course {
+          justify-content: center;
+          margin: 10px;
+          .lesson-number {
+            .white-button;
+            height: 80px;
+            width: 80px;
+
+            // border: 3px solid @black;
+            // border-radius: 50%;
+          }
+        }
+      }
+
+      .unit-header {
+        .rounded-half;
+        .padding;
+        position: relative;
+        color: @white;
+        overflow: hidden;
+        flex-direction: row;
+
+        & > div {
+          width: max-content;
+          align-items: flex-start;
+        }
+
+        .title {
+          font-weight: 700;
+          font-size: 25px;
+        }
+        .subtitle {
+          font-size: 19px;
+        }
+
+        .icon {
+          width: 80px;
+          height: 80px;
+          padding: 15px;
+        }
+      }
+      &:nth-child(5n + 1) {
+        .unit-header {
+          background-color: @green;
+        }
+      }
+      &:nth-child(5n + 2) {
+        .unit-header {
+          background-color: @red;
+        }
+      }
+      &:nth-child(5n + 3) {
+        .unit-header {
+          background-color: @orange;
+        }
+      }
+      &:nth-child(5n + 4) {
+        .unit-header {
+          background-color: @purple;
+        }
+      }
+      &:nth-child(5n + 5) {
+        .unit-header {
+          background-color: @navy;
+        }
+      }
+    }
+  }
+  padding-bottom: 300px;
+}

@@ -1,0 +1,38 @@
+@import "./SignInRegisterStyles.less";
+@import "./HomePresenterStyles.less";
+@import "./RegisterButtonStyles.less";
+
+.UnauthenticatedClientApp {
+  .page-content {
+    .NavSideBar {
+      padding: 0px 15px;
+
+      gap: 10px;
+      a {
+        padding: 15px 13px;
+        width: 100%;
+        .rounded;
+
+        border: 2px solid rgba(255, 255, 255, 0);
+
+        text-transform: uppercase;
+        font-weight: 600;
+        color: @gray;
+
+        &:hover {
+          background-color: @lightest-gray;
+        }
+
+        &.selected {
+          border: 2px solid fade(@blue, 70%);
+          background-color: fade(@blue, 20%);
+        }
+
+        &:hover,
+        &.selected {
+          color: @dark-gray;
+        }
+      }
+    }
+  }
+}

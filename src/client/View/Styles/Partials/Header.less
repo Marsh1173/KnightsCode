@@ -1,0 +1,37 @@
+.Header {
+  justify-content: center;
+  border-bottom: 2px solid @light-gray;
+  margin-bottom: 20px;
+
+  .container {
+    justify-content: space-between;
+    max-width: @max-width;
+    div {
+      width: max-content;
+    }
+  }
+
+  &,
+  div {
+    flex-direction: row;
+  }
+
+  a,
+  button {
+    border: none;
+    background: none;
+
+    .padding;
+
+    color: @blue;
+    font-weight: 800;
+
+    &.main-link {
+      font-size: 22px;
+    }
+    &:not(.main-link) {
+      text-transform: uppercase;
+      font-size: 16px;
+    }
+  }
+}

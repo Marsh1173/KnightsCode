@@ -1,0 +1,62 @@
+.shadowed-button (@color, @text-color: @white) {
+  @button-size: 4px;
+  transform: translateY(-@button-size);
+
+  width: 100%;
+
+  color: @text-color;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 18px;
+  text-align: center;
+
+  background-color: @color;
+  border: 0px solid darken(@color, 10%);
+  border-width: 0px 0px @button-size 0px;
+
+  padding: 15px 25px;
+  margin-top: @button-size;
+
+  .rounded ();
+  &:hover {
+    background-color: lighten(@color, 2%);
+  }
+
+  transition: all @fastest-transition ease-out;
+  &:active {
+    transform: translateY(0);
+    margin-bottom: @button-size;
+    border-width: 0px 0px 0px 0px;
+  }
+}
+
+.white-button {
+  .shadowed-button(@white, @gray);
+  border-width: 2px 2px 6px 2px;
+  padding: 13px 23px;
+  &:active {
+    transform: translateY(-2px);
+    margin-bottom: 0px;
+    border-width: 2px 2px 2px 2px;
+  }
+}
+
+.rounded () {
+  border-radius: 20px;
+}
+.rounded-half () {
+  border-radius: 10px;
+}
+
+.flex () {
+  display: flex;
+  flex-direction: column;
+}
+
+.padding () {
+  padding: 20px 30px;
+}
+
+.page-title {
+  color: @dark-gray;
+}

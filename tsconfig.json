@@ -8,5 +8,5 @@
     "esModuleInterop": true,
     "target": "ESNext"
   },
-  "include": ["./src/ts/**/*.ts", "./src/ts/**/*.tsx"]
+  "include": ["./src/**/*.js", "./src/**/*.ts", "./src/**/*.tsx"]
 }
