@@ -17,10 +17,13 @@
   svg {
     circle {
       stroke-miterlimit: 0;
-      fill: none;
 
       &.background {
         stroke: fade(@black, 50%);
+      }
+
+      &.success {
+        fill: @yellow;
       }
     }
   }

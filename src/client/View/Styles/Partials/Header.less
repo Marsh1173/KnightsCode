@@ -1,7 +1,15 @@
 .Header {
   justify-content: center;
   border-bottom: 2px solid @light-gray;
-  margin-bottom: 20px;
+
+  @bottom-margin: 20px;
+  height: calc(@header-height - @bottom-margin - 2px);
+  margin-bottom: @bottom-margin;
+
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+  background-color: @white;
 
   .container {
     justify-content: space-between;

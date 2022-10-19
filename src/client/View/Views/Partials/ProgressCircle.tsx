@@ -9,7 +9,10 @@ export interface ProgressCircleProps {
   component?: JSX.Element;
 }
 
-export class ProgressCircle extends Component<ProgressCircleProps, { percent: number }> {
+export class ProgressCircle extends Component<
+  ProgressCircleProps,
+  { percent: number }
+> {
   private circle_ref: React.RefObject<HTMLDivElement> = React.createRef();
   constructor(props: ProgressCircleProps) {
     super(props);
@@ -26,6 +29,7 @@ export class ProgressCircle extends Component<ProgressCircleProps, { percent: nu
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           <circle
             className="background"
+            fill="none"
             cx={size / 2}
             cy={size / 2}
             r={this.props.radius}
@@ -33,6 +37,7 @@ export class ProgressCircle extends Component<ProgressCircleProps, { percent: nu
             transform={`rotate(-90 ) translate(-${size} 0)`}
           />
           <circle
+            fill="none"
             strokeLinecap="round"
             cx={size / 2}
             cy={size / 2}
@@ -40,9 +45,20 @@ export class ProgressCircle extends Component<ProgressCircleProps, { percent: nu
             stroke={this.props.color}
             strokeWidth={this.props.thickness}
             strokeDasharray={circumference}
-            strokeDashoffset={circumference - (circumference / 100) * this.state.percent}
+            strokeDashoffset={
+              circumference - (circumference / 100) * this.state.percent
+            }
             transform={`rotate(-90 ) translate(-${size} 0)`}
           />
+          {this.props.percent > 99 && (
+            <circle
+              className="success"
+              cx={size / 2}
+              cy={size / 2}
+              r={this.props.radius + 1 - this.props.thickness / 2}
+              transform={`rotate(-90 ) translate(-${size} 0)`}
+            />
+          )}
         </svg>
         <div className="content">{this.props.component}</div>
       </div>
