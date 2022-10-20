@@ -47,7 +47,7 @@ export class FillInTheBlankComponent extends QuestionView<FillInTheBlankComponen
       let next_ref: React.RefObject<HTMLInputElement> = React.createRef();
       this.input_refs.push(next_ref);
       return (
-        <div className="card" key={get_next_id()}>
+        <div className="fill-in-the-blank" key={get_next_id()}>
           <p>
             {question.before_text}
             <input type={"text"} ref={next_ref} disabled={this.state.state === "completed"} />
@@ -59,7 +59,7 @@ export class FillInTheBlankComponent extends QuestionView<FillInTheBlankComponen
     return (
       <div className="main-content">
         <h1>Fill in the blank:</h1>
-        {this.props.question.question && <h2>{this.props.question.question}</h2>}
+        {this.props.question.question}
         {fill_in_the_blank_components}
       </div>
     );

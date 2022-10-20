@@ -12,8 +12,14 @@ import { Explanation } from "../../../Model/ClassModel/Unit/Explanation";
 import { Project } from "../../../Model/ClassModel/Unit/Project";
 import { Topic } from "../../../Model/ClassModel/Topic";
 
-export class ProgressView extends Component<{ presenter: AuthenticatedClientAppInterface; profile: Profile }, {}> {
-  constructor(props: { presenter: AuthenticatedClientAppInterface; profile: Profile }) {
+export interface ProgressViewProps {
+  presenter: AuthenticatedClientAppInterface;
+  profile: Profile;
+  if_scroll: boolean;
+}
+
+export class ProgressView extends Component<ProgressViewProps, {}> {
+  constructor(props: ProgressViewProps) {
     super(props);
   }
 
@@ -52,11 +58,13 @@ export class ProgressView extends Component<{ presenter: AuthenticatedClientAppI
     }
 
     //Scroll to first unfinished section
-    let section_components = document.getElementsByClassName("SectionComponent") as HTMLCollectionOf<HTMLDivElement>;
-    for (let i: number = 0; i < section_components.length; i++) {
-      if (!section_components.item(i)!.classList.contains("completed")) {
-        section_components.item(i)!.scrollIntoView({ block: "center" });
-        break;
+    if (this.props.if_scroll) {
+      let section_components = document.getElementsByClassName("SectionComponent") as HTMLCollectionOf<HTMLDivElement>;
+      for (let i: number = 0; i < section_components.length; i++) {
+        if (!section_components.item(i)!.classList.contains("completed")) {
+          section_components.item(i)!.scrollIntoView({ block: "center" });
+          break;
+        }
       }
     }
   }

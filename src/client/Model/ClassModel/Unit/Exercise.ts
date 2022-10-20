@@ -2,7 +2,7 @@ import { Unit } from "./Unit";
 
 export interface Flashcard {
   type: "Flashcard";
-  question: string;
+  question: JSX.Element;
   answers: string[];
   correct_index: number;
 }
@@ -15,7 +15,7 @@ export interface FillInTheBlankPhrase {
 
 export interface FillInTheBlank {
   type: "FillInTheBlank";
-  question?: string;
+  question?: JSX.Element;
   questions: FillInTheBlankPhrase[];
 }
 

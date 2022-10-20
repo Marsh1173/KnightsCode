@@ -42,7 +42,7 @@ export class FlashcardComponent extends QuestionView<FlashcardComponentProps, Fl
     });
     return (
       <div className="main-content">
-        <h1>{this.props.question.question}</h1>
+        {this.props.question.question}
         <div className="cards">{flashcard_components}</div>
       </div>
     );

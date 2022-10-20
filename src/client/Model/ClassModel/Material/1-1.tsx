@@ -7,8 +7,8 @@ export const explanation_0_0_0: Explanation = {
   pages: [
     <h1>Welcome to Programming in Python!</h1>,
     <p>
-      Python is a programming language. When programmers write code, they use a programming language that can be
-      converted to binary that the computer understands.
+      Python is a <b>programming language.</b> When programmers write code, they use a programming language that can be
+      converted to <b>binary</b> that the computer understands.
     </p>,
   ],
   lesson: 0,
@@ -21,13 +21,13 @@ export const exercise_0_0_1: Exercise = {
   questions: [
     {
       type: "Flashcard",
-      question: "Python is a...",
+      question: <h1>Python is a...</h1>,
       answers: ["Snake", "Programming Language", "River", "Race"],
       correct_index: 1,
     },
     {
       type: "Flashcard",
-      question: "Computers only understand...",
+      question: <h1>Computers only understand...</h1>,
       answers: ["Binary", "Code", "English", "Japanese"],
       correct_index: 0,
     },
@@ -41,8 +41,13 @@ export const explanation_0_0_2: Explanation = {
   type: "Explanation",
   pages: [
     <h1>Operators</h1>,
-    <p>Python supports mathematical expressions using symbols called operators.</p>,
-    <p>These operators include + (addition), - (subtraction), * (multiplication), and / (division).</p>,
+    <p>
+      Python supports mathematical expressions using symbols called <b>operators.</b>
+    </p>,
+    <p>
+      These operators include <mark>+</mark> (addition), <mark>-</mark> (subtraction), <mark>*</mark> (multiplication),
+      and <mark>/</mark> (division).
+    </p>,
   ],
   lesson: 0,
   section: 0,
@@ -54,7 +59,7 @@ export const exercise_0_0_3: Exercise = {
   questions: [
     {
       type: "FillInTheBlank",
-      question: "What does each Python expression evaluate to?",
+      question: <h2>What does each Python expression evaluate to?</h2>,
       questions: [
         {
           before_text: "6 + 5 = ",

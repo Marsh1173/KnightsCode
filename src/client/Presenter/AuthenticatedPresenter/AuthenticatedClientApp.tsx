@@ -32,8 +32,7 @@ export class AuthenticatedClientApp
     this.begin_explanation = this.begin_explanation.bind(this);
     this.begin_project = this.begin_project.bind(this);
 
-    let profile: Profile = this.get_current_profile();
-    this.set_content(<ProgressView presenter={this} profile={profile} />);
+    this.show_progress(true);
   }
   render() {
     return (
@@ -51,9 +50,9 @@ export class AuthenticatedClientApp
     }
   }
 
-  public show_progress = () => {
+  public show_progress = (if_scroll: boolean = false) => {
     let profile: Profile = this.get_current_profile();
-    this.set_content(<ProgressView presenter={this} profile={profile} />);
+    this.set_content(<ProgressView presenter={this} profile={profile} if_scroll={if_scroll} />);
   };
 
   public begin_exercise(exercise: Exercise) {

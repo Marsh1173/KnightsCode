@@ -18,7 +18,7 @@ export class UnitView extends Component<UnitViewProps, {}> {
     return (
       <div className="UnitView">
         <div className="unit-container">
-          <button className="leave-button" onClick={this.props.presenter.show_progress}>
+          <button className="leave-button" onClick={() => this.props.presenter.show_progress()}>
             <img src={"images/courses/right-to-bracket-solid.svg"} />
           </button>
           {this.props.main_content}
