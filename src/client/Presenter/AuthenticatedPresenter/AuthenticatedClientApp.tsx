@@ -1,15 +1,22 @@
 import React, { Component } from "react";
+import { Exercise } from "../../Model/ClassModel/Unit/Exercise";
+import { Explanation } from "../../Model/ClassModel/Unit/Explanation";
 import { LocalStorageHandler } from "../../Model/DataAccessors/LocalStoragehandler";
 import { get_current_profile_id, LocallyStoredProfiles, Profile } from "../../Model/Profile/Profile";
-import { GameResultsView } from "../../View/Views/AuthenticatedView/GameResultsView";
-import { ProfileView } from "../../View/Views/AuthenticatedView/ProfileView";
 import { ProgressView } from "../../View/Views/AuthenticatedView/ProgressView";
+import { Project } from "../../Model/ClassModel/Unit/Project";
+import { ExplanationView } from "../../View/Views/AuthenticatedView/UnitViews/ExplanationView";
+import { Unit } from "../../Model/ClassModel/Unit/Unit";
+import { ExerciseView } from "../../View/Views/AuthenticatedView/UnitViews/ExerciseView";
+import { UnitCompletion } from "../../Model/Profile/UnitCompletion";
 
 export interface AuthenticatedClientAppInterface {
   show_progress: () => void;
-  begin_game: () => void;
-  show_game_results: () => void;
+  begin_exercise: (exercise: Exercise) => void;
+  begin_explanation: (explanation: Explanation) => void;
+  begin_project: (project: Project) => void;
   get_current_profile: () => Profile;
+  on_complete_unit: (unit: Unit) => void;
 }
 
 export class AuthenticatedClientApp
@@ -21,8 +28,9 @@ export class AuthenticatedClientApp
     super(props);
 
     this.show_progress = this.show_progress.bind(this);
-    this.begin_game = this.begin_game.bind(this);
-    this.show_game_results = this.show_game_results.bind(this);
+    this.begin_exercise = this.begin_exercise.bind(this);
+    this.begin_explanation = this.begin_explanation.bind(this);
+    this.begin_project = this.begin_project.bind(this);
 
     let profile: Profile = this.get_current_profile();
     this.set_content(<ProgressView presenter={this} profile={profile} />);
@@ -47,10 +55,43 @@ export class AuthenticatedClientApp
     let profile: Profile = this.get_current_profile();
     this.set_content(<ProgressView presenter={this} profile={profile} />);
   };
-  public begin_game = () => {};
-  public show_game_results = () => {
-    this.set_content(<GameResultsView />);
-  };
+
+  public begin_exercise(exercise: Exercise) {
+    this.set_content(<ExerciseView presenter={this} unit={exercise} />);
+  }
+  public begin_explanation(explanation: Explanation) {
+    this.set_content(<ExplanationView presenter={this} unit={explanation} />);
+  }
+  public begin_project(project: Project) {}
+
+  public on_complete_unit(unit: Unit) {
+    let profiles: LocallyStoredProfiles | undefined =
+      LocalStorageHandler.get_local_storage_item<LocallyStoredProfiles>("locally-stored-profiles");
+
+    if (!profiles) {
+      location.href = location.origin;
+    }
+
+    let profile: Profile | undefined = profiles!.profiles.find(
+      (profile_data) => profile_data.id === get_current_profile_id()
+    );
+
+    if (!profile) {
+      location.href = location.origin;
+    }
+
+    console.log(profile!.completed);
+    let possible_preexisting_completion: UnitCompletion | undefined = profile!.completed.find(
+      (old_unit) => unit.lesson === old_unit.lesson && unit.unit === old_unit.unit && unit.section === old_unit.section
+    );
+    if (possible_preexisting_completion) {
+      possible_preexisting_completion.date = Date.now();
+    } else {
+      profile!.completed.push({ lesson: unit.lesson, unit: unit.unit, section: unit.section, date: Date.now() });
+    }
+
+    LocalStorageHandler.set_local_storage_item("locally-stored-profiles", profiles);
+  }
 
   public get_current_profile(): Profile {
     let profiles: LocallyStoredProfiles | undefined =

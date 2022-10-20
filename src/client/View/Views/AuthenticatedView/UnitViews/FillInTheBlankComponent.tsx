@@ -1,0 +1,43 @@
+import React from "react";
+import { get_next_id } from "../../../../Model/DataAccessors/GetNextId";
+import { FillInTheBlank } from "../../../../Model/ClassModel/Unit/Exercise";
+import { QuestionView, QuestionViewPropsInterface, QuestionViewStateInterface } from "./QuestionView";
+
+interface FillInTheBlankComponentProps extends QuestionViewPropsInterface {
+  question: FillInTheBlank;
+}
+interface FillInTheBlankComponentState extends QuestionViewStateInterface {}
+
+export class FillInTheBlankComponent extends QuestionView<FillInTheBlankComponentProps, FillInTheBlankComponentState> {
+  private input_refs: React.RefObject<HTMLInputElement>[] = [];
+
+  constructor(props: FillInTheBlankComponentProps) {
+    super(props, { state: "attempting" });
+  }
+
+  protected check_answer(): void {
+    this.props.exercise_presenter.next_question();
+  }
+  protected get_main_content(): JSX.Element {
+    this.input_refs = [];
+    let fill_in_the_blank_components: JSX.Element[] = this.props.question.questions.map((question) => {
+      let next_ref: React.RefObject<HTMLInputElement> = React.createRef();
+      this.input_refs.push(next_ref);
+      return (
+        <div className="card" key={get_next_id()} ref={next_ref}>
+          <span>
+            {question.before_text}
+            {question.after_text}
+          </span>
+        </div>
+      );
+    });
+    return (
+      <div className="main-content">
+        <h1>Fill in the blank:</h1>
+        {this.props.question.question && <h2>{this.props.question.question}</h2>}
+        {fill_in_the_blank_components}
+      </div>
+    );
+  }
+}

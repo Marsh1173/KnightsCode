@@ -1,4 +1,4 @@
-import { Project } from "./Project";
+import { Project } from "./Unit/Project";
 import { LESSON_1_SECTIONS, Topic } from "./Topic";
 
 export interface Lesson {

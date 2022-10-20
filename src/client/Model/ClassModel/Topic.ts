@@ -1,45 +1,46 @@
-import { DUMMY_EXERCISE_1, Exercise } from "./Exercise";
-import { Explanation } from "./Explanation";
-import { Project } from "./Project";
+import { Exercise } from "./Unit/Exercise";
+import { Explanation } from "./Unit/Explanation";
+import { exercise_0_0_1, exercise_0_0_3, explanation_0_0_0, explanation_0_0_2 } from "./Material/1-1";
+import { exercise_0_1_1, explanation_0_1_0 } from "./Material/1-2";
+import { Project } from "./Unit/Project";
 
 export interface Topic {
   type: "Topic";
   name: string;
   subtitle: string;
-  courses: (Exercise | Explanation)[];
-  icon_url: string;
+  units: (Exercise | Explanation)[];
 }
 
 export const LESSON_1_SECTIONS: (Topic | Project)[] = [
   {
     type: "Topic",
-    name: "Section 1",
-    subtitle: "Print phrases to the console",
-    courses: [DUMMY_EXERCISE_1, DUMMY_EXERCISE_1, DUMMY_EXERCISE_1],
-    icon_url: "quote-right-solid.svg",
+    name: "Introduction",
+    subtitle: "Section 1",
+    units: [explanation_0_0_0, exercise_0_0_1, explanation_0_0_2, exercise_0_0_3],
   },
   {
     type: "Topic",
-    name: "Section 2",
-    subtitle: "Create variables and assign values",
-    courses: [DUMMY_EXERCISE_1, DUMMY_EXERCISE_1, DUMMY_EXERCISE_1],
-    icon_url: "y-solid.svg",
+    name: "Variables",
+    subtitle: "Section 2",
+    units: [explanation_0_1_0, exercise_0_1_1],
   },
   {
     type: "Topic",
-    name: "Section 3",
-    subtitle: "If/else statements",
-    courses: [DUMMY_EXERCISE_1, DUMMY_EXERCISE_1, DUMMY_EXERCISE_1],
-    icon_url: "code-branch-solid.svg",
+    name: "Functions",
+    subtitle: "Section 3",
+    units: [explanation_0_1_0, exercise_0_1_1, exercise_0_1_1],
   },
   {
     type: "Topic",
-    name: "Section 4",
-    subtitle: "Use loops",
-    courses: [DUMMY_EXERCISE_1, DUMMY_EXERCISE_1, DUMMY_EXERCISE_1],
-    icon_url: "repeat-solid.svg",
+    name: "Loops",
+    subtitle: "Section 4",
+    units: [explanation_0_1_0, exercise_0_1_1],
   },
   {
     type: "Project",
+    description: "Loops, functions, and printing",
+    lesson: 0,
+    section: 4,
+    unit: 0,
   },
 ];

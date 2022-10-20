@@ -1,24 +1,41 @@
 .ProgressView {
-  .units {
-    .unit {
+  .LessonComponent {
+    .SectionComponent {
       max-width: 580px;
 
-      .unit-content {
-        .course {
-          justify-content: center;
-          margin: 10px;
-          .lesson-number {
-            .white-button;
-            height: 80px;
-            width: 80px;
+      .section-content {
+        .UnitComponent {
+          padding: 10px;
+          height: 108px;
+          justify-content: flex-end;
+          .container {
+            width: min-content;
+            height: min-content;
+            background-color: @gray;
 
-            // border: 3px solid @black;
-            // border-radius: 50%;
+            border-radius: 50%;
+            border-width: 2px 2px 6px 2px;
+            border-style: solid;
+            border-color: darken(@gray, 5%);
+
+            transition: @fastest-transition;
+            .icon {
+              width: 80px;
+              height: 80px;
+              padding: 15px;
+            }
+            &.completed {
+              background-color: @yellow;
+              border-color: darken(@yellow, 5%);
+            }
+            &:active {
+              border-width: 2px 2px 2px 2px;
+            }
           }
         }
       }
 
-      .unit-header {
+      .section-header {
         .rounded-half;
         .padding;
         position: relative;
@@ -38,36 +55,36 @@
         .subtitle {
           font-size: 19px;
         }
-
-        .icon {
-          width: 80px;
-          height: 80px;
-          padding: 15px;
-        }
       }
       &:nth-child(5n + 1) {
-        .unit-header {
+        .section-header {
           background-color: @green;
         }
       }
       &:nth-child(5n + 2) {
-        .unit-header {
+        .section-header {
           background-color: @red;
         }
       }
       &:nth-child(5n + 3) {
-        .unit-header {
+        .section-header {
           background-color: @orange;
         }
       }
       &:nth-child(5n + 4) {
-        .unit-header {
+        .section-header {
           background-color: @purple;
         }
       }
       &:nth-child(5n + 5) {
-        .unit-header {
+        .section-header {
           background-color: @navy;
+        }
+      }
+
+      &.completed {
+        .section-header {
+          background-color: @yellow;
         }
       }
     }
