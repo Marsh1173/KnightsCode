@@ -5,6 +5,18 @@
 
       .section-content {
         .UnitComponent {
+          .container {
+            border-radius: 50%;
+            border-color: darken(@gray, 5%);
+          }
+        }
+        .ProjectComponent {
+          .container {
+            .rounded-half;
+          }
+        }
+        .UnitComponent,
+        .ProjectComponent {
           padding: 10px;
           height: 108px;
           justify-content: flex-end;
@@ -13,10 +25,8 @@
             height: min-content;
             background-color: @gray;
 
-            border-radius: 50%;
             border-width: 2px 2px 6px 2px;
             border-style: solid;
-            border-color: darken(@gray, 5%);
 
             transition: @fastest-transition;
             .icon {
@@ -57,34 +67,46 @@
         }
       }
       &:nth-child(5n + 1) {
-        .section-header {
+        .section-header,
+        .ProjectComponent .container {
           background-color: @green;
+          border-color: darken(@green, 5%);
         }
       }
       &:nth-child(5n + 2) {
-        .section-header {
+        .section-header,
+        .ProjectComponent .container {
           background-color: @red;
+          border-color: darken(@red, 5%);
         }
       }
       &:nth-child(5n + 3) {
-        .section-header {
+        .section-header,
+        .ProjectComponent .container {
           background-color: @orange;
+          border-color: darken(@orange, 5%);
         }
       }
       &:nth-child(5n + 4) {
-        .section-header {
+        .section-header,
+        .ProjectComponent .container {
           background-color: @purple;
+          border-color: darken(@purple, 5%);
         }
       }
       &:nth-child(5n + 5) {
-        .section-header {
+        .section-header,
+        .ProjectComponent .container {
           background-color: @navy;
+          border-color: darken(@navy, 5%);
         }
       }
 
       &.completed {
-        .section-header {
+        .section-header,
+        .ProjectComponent .container {
           background-color: @yellow;
+          border-color: darken(@yellow, 5%);
         }
       }
     }

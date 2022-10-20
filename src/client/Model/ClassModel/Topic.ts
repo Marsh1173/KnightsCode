@@ -2,7 +2,7 @@ import { Exercise } from "./Unit/Exercise";
 import { Explanation } from "./Unit/Explanation";
 import { exercise_0_0_1, exercise_0_0_3, explanation_0_0_0, explanation_0_0_2 } from "./Material/1-1";
 import { exercise_0_1_1, explanation_0_1_0 } from "./Material/1-2";
-import { Project } from "./Unit/Project";
+import { Project, project_0_4_0 } from "./Unit/Project";
 import { exercise_0_3_1, explanation_0_3_0 } from "./Material/1-4";
 
 export interface Topic {
@@ -37,11 +37,5 @@ export const LESSON_1_SECTIONS: (Topic | Project)[] = [
     subtitle: "Section 4",
     units: [explanation_0_3_0, exercise_0_3_1],
   },
-  {
-    type: "Project",
-    description: "Loops, functions, and printing",
-    lesson: 0,
-    section: 4,
-    unit: 0,
-  },
+  project_0_4_0,
 ];

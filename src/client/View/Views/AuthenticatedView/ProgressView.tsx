@@ -122,12 +122,31 @@ class ProjectComponent extends Component<ProjectComponentProps, {}> {
   }
 
   render() {
+    let if_completed: boolean = false;
+    if (
+      this.props.profile.completed.find(
+        (completed) =>
+          completed.lesson === this.props.section.lesson &&
+          completed.section === this.props.section.section &&
+          completed.unit === 0
+      ) !== undefined
+    ) {
+      if_completed = true;
+    }
+
     return (
-      <div className="SectionComponent">
+      <div className={`SectionComponent${if_completed ? " completed" : ""}`} key={get_next_id()}>
         <div className="section-header">
           <div className="left">
             <p className="title">Project</p>
             <p className="subtitle">{this.props.section.description}</p>
+          </div>
+        </div>
+        <div className="section-content">
+          <div className={`ProjectComponent`}>
+            <div className={`container${if_completed ? " completed" : ""}`} onClick={() => {}}>
+              <img className="icon" src={"images/courses/diagram-project-solid.svg"} />
+            </div>
           </div>
         </div>
       </div>
