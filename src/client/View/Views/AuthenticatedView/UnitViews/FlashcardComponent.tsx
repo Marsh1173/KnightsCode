@@ -16,21 +16,34 @@ export class FlashcardComponent extends QuestionView<FlashcardComponentProps, Fl
   }
 
   protected check_answer(): void {
-    this.props.exercise_presenter.next_question();
+    if (this.state.selected_index == this.props.question.correct_index) {
+      this.setState({ state: "completed" });
+    } else {
+      this.setState({ state: "error" });
+    }
   }
   protected get_main_content(): JSX.Element {
-    let flashcard_components: JSX.Element[] = this.props.question.answers.map((answer) => {
+    let flashcard_components: JSX.Element[] = this.props.question.answers.map((answer, index) => {
       let next_ref: React.RefObject<HTMLInputElement> = React.createRef();
       return (
-        <div className="card" key={get_next_id()} ref={next_ref}>
-          <span>{answer}</span>
+        <div
+          className={`card ${this.state.selected_index === index ? "selected" : ""}`}
+          key={get_next_id()}
+          ref={next_ref}
+          onClick={() => {
+            if (this.state.state !== "completed") {
+              this.setState({ selected_index: index });
+            }
+          }}
+        >
+          <p>{answer}</p>
         </div>
       );
     });
     return (
       <div className="main-content">
         <h1>{this.props.question.question}</h1>
-        {flashcard_components}
+        <div className="cards">{flashcard_components}</div>
       </div>
     );
   }

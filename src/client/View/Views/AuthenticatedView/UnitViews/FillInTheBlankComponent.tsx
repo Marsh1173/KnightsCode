@@ -16,7 +16,30 @@ export class FillInTheBlankComponent extends QuestionView<FillInTheBlankComponen
   }
 
   protected check_answer(): void {
-    this.props.exercise_presenter.next_question();
+    this.input_refs[0].current;
+    let currents: HTMLInputElement[] = [];
+
+    for (let i: number = 0; i < this.input_refs.length; i++) {
+      if (!this.input_refs[i].current) {
+        return;
+      } else {
+        currents.push(this.input_refs[i].current!);
+      }
+    }
+
+    let success: boolean = true;
+    for (let i: number = 0; i < currents.length; i++) {
+      let value: string = currents[i].value;
+      if (!this.props.question.questions[i].correct_answers.includes(value)) {
+        success = false;
+      }
+    }
+
+    if (!success) {
+      this.setState({ state: "error" });
+    } else {
+      this.setState({ state: "completed" });
+    }
   }
   protected get_main_content(): JSX.Element {
     this.input_refs = [];
@@ -24,11 +47,12 @@ export class FillInTheBlankComponent extends QuestionView<FillInTheBlankComponen
       let next_ref: React.RefObject<HTMLInputElement> = React.createRef();
       this.input_refs.push(next_ref);
       return (
-        <div className="card" key={get_next_id()} ref={next_ref}>
-          <span>
+        <div className="card" key={get_next_id()}>
+          <p>
             {question.before_text}
+            <input type={"text"} ref={next_ref} disabled={this.state.state === "completed"} />
             {question.after_text}
-          </span>
+          </p>
         </div>
       );
     });

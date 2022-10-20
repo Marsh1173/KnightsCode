@@ -14,17 +14,19 @@ export abstract class QuestionView<
   Props extends QuestionViewPropsInterface,
   State extends QuestionViewStateInterface
 > extends Component<Props, State> {
-  constructor(props: Props, initial_state: State) {
+  private ref: React.RefObject<UnitView> = React.createRef();
+
+  constructor(props: Props, private readonly initial_state: State) {
     super(props);
 
-    this.state = initial_state;
-
+    this.update_state(this.initial_state);
     this.check_answer = this.check_answer.bind(this);
   }
 
   render() {
     return (
       <UnitView
+        ref={this.ref}
         presenter={this.props.presenter}
         main_content={this.get_main_content()}
         state={this.state.state}
@@ -50,7 +52,13 @@ export abstract class QuestionView<
       );
     } else {
       return (
-        <button className="green" onClick={this.props.exercise_presenter.next_question}>
+        <button
+          className="green"
+          onClick={() => {
+            this.update_state(this.initial_state);
+            this.props.exercise_presenter.next_question();
+          }}
+        >
           Continue
         </button>
       );
@@ -58,4 +66,12 @@ export abstract class QuestionView<
   }
   protected abstract check_answer(): void;
   protected abstract get_main_content(): JSX.Element;
+
+  protected update_state(new_state: State) {
+    if (this.ref.current) {
+      this.setState(new_state);
+    } else {
+      this.state = new_state;
+    }
+  }
 }

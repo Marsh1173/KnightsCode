@@ -80,7 +80,6 @@ export class AuthenticatedClientApp
       location.href = location.origin;
     }
 
-    console.log(profile!.completed);
     let possible_preexisting_completion: UnitCompletion | undefined = profile!.completed.find(
       (old_unit) => unit.lesson === old_unit.lesson && unit.unit === old_unit.unit && unit.section === old_unit.section
     );

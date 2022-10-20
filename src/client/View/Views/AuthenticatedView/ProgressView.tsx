@@ -42,7 +42,7 @@ export class ProgressView extends Component<{ presenter: AuthenticatedClientAppI
     //"Meander" the unit components
     let incrementor: number = 0;
     let increment_amount: number = 0.9;
-    let translate_amount = -100;
+    let translate_amount = -80;
 
     let unit_components = document.getElementsByClassName("UnitComponent") as HTMLCollectionOf<HTMLDivElement>;
     for (let i: number = 0; i < unit_components.length; i++) {
@@ -181,7 +181,7 @@ class TopicComponent extends Component<TopicComponentProps, {}> {
               radius={30}
               thickness={8}
               color={"#fff"}
-              component={<p>{percent + "%"}</p>}
+              component={<p>{Math.round(percent) + "%"}</p>}
             />
           </div>
         </div>
