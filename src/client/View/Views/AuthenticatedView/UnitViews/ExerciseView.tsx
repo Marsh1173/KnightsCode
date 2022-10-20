@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import { Exercise, FillInTheBlank, Flashcard } from "../../../../Model/ClassModel/Unit/Exercise";
+import {
+  Project,
+  ProjectExerciseInterface,
+} from "../../../../Model/ClassModel/Unit/Project";
+import {
+  Exercise,
+  FillInTheBlank,
+  Flashcard,
+} from "../../../../Model/ClassModel/Unit/Exercise";
 import { AuthenticatedClientAppInterface } from "../../../../Presenter/AuthenticatedPresenter/AuthenticatedClientApp";
 import { FillInTheBlankComponent } from "./FillInTheBlankComponent";
 import { FlashcardComponent } from "./FlashcardComponent";
 import { UnitView } from "./UnitView";
+import { ProjectComponent } from "./ProjectView";
 
 export interface ExerciseViewInterface {
   next_question: () => void;
@@ -11,14 +20,17 @@ export interface ExerciseViewInterface {
 
 interface ExerciseViewProps {
   presenter: AuthenticatedClientAppInterface;
-  unit: Exercise;
+  unit: Exercise | Project;
 }
 
 interface ExerciseViewState {
   question_index: number;
 }
 
-export class ExerciseView extends Component<ExerciseViewProps, ExerciseViewState> implements ExerciseViewInterface {
+export class ExerciseView
+  extends Component<ExerciseViewProps, ExerciseViewState>
+  implements ExerciseViewInterface
+{
   constructor(props: ExerciseViewProps) {
     super(props);
 
@@ -28,11 +40,32 @@ export class ExerciseView extends Component<ExerciseViewProps, ExerciseViewState
   }
 
   render() {
-    let question: FillInTheBlank | Flashcard = this.props.unit.questions[this.state.question_index];
+    let question: FillInTheBlank | Flashcard | ProjectExerciseInterface =
+      this.props.unit.questions[this.state.question_index];
     if (question.type === "FillInTheBlank") {
-      return <FillInTheBlankComponent question={question} presenter={this.props.presenter} exercise_presenter={this} />;
+      return (
+        <FillInTheBlankComponent
+          question={question}
+          presenter={this.props.presenter}
+          exercise_presenter={this}
+        />
+      );
+    } else if (question.type === "ProjectExerciseInterface") {
+      return (
+        <ProjectComponent
+          question={question}
+          presenter={this.props.presenter}
+          exercise_presenter={this}
+        />
+      );
     } else {
-      return <FlashcardComponent question={question} presenter={this.props.presenter} exercise_presenter={this} />;
+      return (
+        <FlashcardComponent
+          question={question}
+          presenter={this.props.presenter}
+          exercise_presenter={this}
+        />
+      );
     }
   }
 

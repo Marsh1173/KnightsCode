@@ -38,7 +38,10 @@ export class ProgressView extends Component<ProgressViewProps, {}> {
         <div className="page-content">
           <div className="empty small-side-bar"></div>
           {lesson_component}
-          <ProfileView presenter={this.props.presenter} profile={this.props.profile}></ProfileView>
+          <ProfileView
+            presenter={this.props.presenter}
+            profile={this.props.profile}
+          ></ProfileView>
         </div>
       </div>
     );
@@ -50,16 +53,21 @@ export class ProgressView extends Component<ProgressViewProps, {}> {
     let increment_amount: number = 0.9;
     let translate_amount = -80;
 
-    let unit_components = document.getElementsByClassName("UnitComponent") as HTMLCollectionOf<HTMLDivElement>;
+    let unit_components = document.getElementsByClassName(
+      "UnitComponent"
+    ) as HTMLCollectionOf<HTMLDivElement>;
     for (let i: number = 0; i < unit_components.length; i++) {
       let x_value = Math.cos(incrementor) * translate_amount;
       incrementor += increment_amount;
-      unit_components.item(i)!.style.transform = "translateX(" + x_value + "px)";
+      unit_components.item(i)!.style.transform =
+        "translateX(" + x_value + "px)";
     }
 
     //Scroll to first unfinished section
     if (this.props.if_scroll) {
-      let section_components = document.getElementsByClassName("SectionComponent") as HTMLCollectionOf<HTMLDivElement>;
+      let section_components = document.getElementsByClassName(
+        "SectionComponent"
+      ) as HTMLCollectionOf<HTMLDivElement>;
       for (let i: number = 0; i < section_components.length; i++) {
         if (!section_components.item(i)!.classList.contains("completed")) {
           section_components.item(i)!.scrollIntoView({ block: "center" });
@@ -82,31 +90,35 @@ class LessonComponent extends Component<LessonComponentProps, {}> {
   }
 
   render() {
-    let section_components: JSX.Element[] = this.props.lesson.sections.map((section, section_index) => {
-      if (section.type === "Project") {
-        return (
-          <ProjectComponent
-            profile={this.props.profile}
-            section={section}
-            presenter={this.props.presenter}
-            key={get_next_id()}
-          />
-        );
-      } else {
-        return (
-          <TopicComponent
-            profile={this.props.profile}
-            lesson_index={0}
-            section_index={section_index}
-            section={section}
-            presenter={this.props.presenter}
-            key={get_next_id()}
-          />
-        );
+    let section_components: JSX.Element[] = this.props.lesson.sections.map(
+      (section, section_index) => {
+        if (section.type === "Project") {
+          return (
+            <ProjectComponent
+              profile={this.props.profile}
+              section={section}
+              presenter={this.props.presenter}
+              key={get_next_id()}
+            />
+          );
+        } else {
+          return (
+            <TopicComponent
+              profile={this.props.profile}
+              lesson_index={0}
+              section_index={section_index}
+              section={section}
+              presenter={this.props.presenter}
+              key={get_next_id()}
+            />
+          );
+        }
       }
-    });
+    );
 
-    return <div className="LessonComponent main-content">{section_components}</div>;
+    return (
+      <div className="LessonComponent main-content">{section_components}</div>
+    );
   }
 }
 
@@ -135,7 +147,10 @@ class ProjectComponent extends Component<ProjectComponentProps, {}> {
     }
 
     return (
-      <div className={`SectionComponent${if_completed ? " completed" : ""}`} key={get_next_id()}>
+      <div
+        className={`SectionComponent${if_completed ? " completed" : ""}`}
+        key={get_next_id()}
+      >
         <div className="section-header">
           <div className="left">
             <p className="title">Project</p>
@@ -144,8 +159,16 @@ class ProjectComponent extends Component<ProjectComponentProps, {}> {
         </div>
         <div className="section-content">
           <div className={`ProjectComponent`}>
-            <div className={`container${if_completed ? " completed" : ""}`} onClick={() => {}}>
-              <img className="icon" src={"images/courses/diagram-project-solid.svg"} />
+            <div
+              className={`container${if_completed ? " completed" : ""}`}
+              onClick={() => {
+                this.props.presenter.begin_project(this.props.section);
+              }}
+            >
+              <img
+                className="icon"
+                src={"images/courses/diagram-project-solid.svg"}
+              />
             </div>
           </div>
         </div>
@@ -170,33 +193,38 @@ class TopicComponent extends Component<TopicComponentProps, {}> {
   render() {
     let total = 0;
     let total_completed = 0;
-    let unit_components: JSX.Element[] = this.props.section.units.map((unit, index) => {
-      let if_completed: boolean = false;
-      total++;
-      if (
-        this.props.profile.completed.find(
-          (completed) =>
-            completed.lesson === this.props.lesson_index &&
-            completed.section === this.props.section_index &&
-            completed.unit === index
-        ) !== undefined
-      ) {
-        total_completed++;
-        if_completed = true;
+    let unit_components: JSX.Element[] = this.props.section.units.map(
+      (unit, index) => {
+        let if_completed: boolean = false;
+        total++;
+        if (
+          this.props.profile.completed.find(
+            (completed) =>
+              completed.lesson === this.props.lesson_index &&
+              completed.section === this.props.section_index &&
+              completed.unit === index
+          ) !== undefined
+        ) {
+          total_completed++;
+          if_completed = true;
+        }
+        return (
+          <UnitComponent
+            profile={this.props.profile}
+            unit={unit}
+            if_completed={if_completed}
+            presenter={this.props.presenter}
+            key={get_next_id()}
+          />
+        );
       }
-      return (
-        <UnitComponent
-          profile={this.props.profile}
-          unit={unit}
-          if_completed={if_completed}
-          presenter={this.props.presenter}
-          key={get_next_id()}
-        />
-      );
-    });
+    );
     let percent = total === 0 ? 0 : (total_completed * 100) / total;
     return (
-      <div className={`SectionComponent${percent === 100 ? " completed" : ""}`} key={get_next_id()}>
+      <div
+        className={`SectionComponent${percent === 100 ? " completed" : ""}`}
+        key={get_next_id()}
+      >
         <div className="section-header">
           <div className="left">
             <p className="title">{this.props.section.name}</p>
@@ -236,15 +264,20 @@ class UnitComponent extends Component<UnitComponentProps, {}> {
 
     if (this.props.unit.type === "Exercise") {
       src = "circle-check-regular.svg";
-      on_click = () => this.props.presenter.begin_exercise(this.props.unit as Exercise);
+      on_click = () =>
+        this.props.presenter.begin_exercise(this.props.unit as Exercise);
     } else if (this.props.unit.type === "Explanation") {
       src = "file-lines-regular.svg";
-      on_click = () => this.props.presenter.begin_explanation(this.props.unit as Explanation);
+      on_click = () =>
+        this.props.presenter.begin_explanation(this.props.unit as Explanation);
     }
 
     return (
       <div className={`UnitComponent`}>
-        <div className={`container${this.props.if_completed ? " completed" : ""}`} onClick={on_click}>
+        <div
+          className={`container${this.props.if_completed ? " completed" : ""}`}
+          onClick={on_click}
+        >
           <img className="icon" src={"images/courses/" + src} />
         </div>
       </div>
